@@ -18,7 +18,11 @@
     <ClCompile Include="MyForm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Cell.cpp">
+=======
+    <ClCompile Include="ReadFile.cpp">
+>>>>>>> origin/master
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -26,8 +30,13 @@
     <ClInclude Include="MyForm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Cell.h">
       <Filter>Source Files</Filter>
+=======
+    <ClInclude Include="ReadFile.h">
+      <Filter>Header Files</Filter>
+>>>>>>> origin/master
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

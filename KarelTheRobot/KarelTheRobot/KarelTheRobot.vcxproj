@@ -81,12 +81,14 @@
   <ItemGroup>
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="ReadFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cell.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="ReadFile.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyForm.resx">
