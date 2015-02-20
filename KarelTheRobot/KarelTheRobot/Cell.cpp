@@ -2,18 +2,18 @@
 
 Cell::Cell(char w, bool b, bool k){
 	switch (w){
-	case 'u':
-		MoveUp = false;
-		break;
-	case 'r':
-		MoveRight = false;
-		break;
-	case 'd':
-		MoveDown = false;
-		break;
-	case 'l':
-		MoveLeft = false;
-		break;
+		case 'u':
+			MoveUp = false;
+			break;
+		case 'r':
+			MoveRight = false;
+			break;
+		case 'd':
+			MoveDown = false;
+			break;
+		case 'l':
+			MoveLeft = false;
+			break;
 	}
 
 	if (b){
@@ -24,12 +24,24 @@ Cell::Cell(char w, bool b, bool k){
 	}
 }
 
-void Cell::DrawWalls(){
-
+void Cell::DrawWalls(Graphics^ g, Rectangle r){
+	if (!MoveDown){
+		g->DrawLine(wall, r.Bottom, r.Left, r.Bottom, r.Right);
+	}
+	if (!MoveLeft){
+		g->DrawLine(wall, r.Left, r.Top, r.Left, r.Bottom);
+	}
+	if (!MoveUp){
+		g->DrawLine(wall, r.Top, r.Left, r.Bottom, r.Top);
+	}
+	if (!MoveRight){
+		g->DrawLine(wall, r.Right, r.Top, r.Right, r.Bottom);
+	}
 }
 
-void Cell::DrawCell(){
-
+void Cell::DrawCell(Graphics^ g, Rectangle r){
+	g->FillRectangle(cellColor, r);
+	DrawWalls(g, r);
 }
 
 bool Cell::canMoveDown(){
