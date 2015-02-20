@@ -4,13 +4,12 @@
 
 class ReadFile {
 private:
-	std::string currentLine;
-	char* commandArray;
-	std::ifstream inputFile;
-	const std::string FILENAME = "commands.txt";
-	int numCommands;
+	char **commandArray; // array holding commands
+	std::ifstream inputFile; // instream to read file
+	const std::string FILENAME = "commands.txt"; // filename of commands text file
+	int numCommands; // number of commands for array
 public:
-	ReadFile();
-	int getNumLines();
-	char** parseCommandFile();
+	ReadFile(); // constructor
+	int getNumLines(); // inputs file and gets number of lines in the file
+	char** parseCommandFile(); // parses individual lines and adds commands to the array
 };
