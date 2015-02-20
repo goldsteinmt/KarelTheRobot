@@ -1,7 +1,8 @@
 #include "Cell.h"
+#include <ctype.h>
 
 Cell::Cell(char w, bool b, bool k){
-	switch (w){
+	switch (tolower(w)){
 		case 'u':
 			MoveUp = false;
 			break;
@@ -24,6 +25,7 @@ Cell::Cell(char w, bool b, bool k){
 	}
 }
 
+//
 void Cell::DrawWalls(Graphics^ g, Rectangle r){
 	if (!MoveDown){
 		g->DrawLine(wall, r.Bottom, r.Left, r.Bottom, r.Right);
