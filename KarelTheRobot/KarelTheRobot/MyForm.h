@@ -34,7 +34,16 @@ namespace Project1 {
 				delete components;
 			}
 		}
+	private:
+		Graphics^g;
+		Pen^blackPen;
+
 	private: System::Windows::Forms::Panel^  panel1;
+
+			 Bitmap^ Karel = gcnew Bitmap("Karel.bmp");
+			 Bitmap^ beeper = gcnew Bitmap("beeper.bmp");
+	private: System::Windows::Forms::Label^  label_num;
+
 	protected:
 
 	private:
@@ -51,29 +60,47 @@ namespace Project1 {
 		void InitializeComponent(void)
 		{
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->label_num = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// panel1
 			// 
 			this->panel1->Location = System::Drawing::Point(29, 34);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(472, 359);
+			this->panel1->Size = System::Drawing::Size(569, 436);
 			this->panel1->TabIndex = 0;
 			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::panel1_Paint);
+			// 
+			// label_num
+			// 
+			this->label_num->AutoSize = true;
+			this->label_num->Location = System::Drawing::Point(642, 92);
+			this->label_num->Name = L"label_num";
+			this->label_num->Size = System::Drawing::Size(249, 20);
+			this->label_num->TabIndex = 1;
+			this->label_num->Text = L"Number of Beepers in Karel\'s bag:";
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(637, 509);
+			this->ClientSize = System::Drawing::Size(974, 509);
+			this->Controls->Add(this->label_num);
 			this->Controls->Add(this->panel1);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
+			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
 	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
+	}
+	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
+				 g = panel1->CreateGraphics();
+				 blackPen = gcnew System::Drawing::Pen(Color::Black);
+
 	}
 	};
 }

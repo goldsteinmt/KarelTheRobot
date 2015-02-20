@@ -1,0 +1,8 @@
+WORLD 8 8
+beepers 3 2 1
+beepers 6 4 2
+beepers 4 7 3
+wall 2 6 4
+wall 5 1 1
+wall 7 3 2
+robot 4 4 3 0
