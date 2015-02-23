@@ -1,6 +1,5 @@
 #include "ReadFile.h"
 #include <sstream>
-//#include <ctype.h>
 #include <algorithm>
 
 ReadFile::ReadFile(){
@@ -29,14 +28,60 @@ char** ReadFile::parseCommandFile(){
 	std::string words[5]; // array of words for current line to be parsed
 	std::string currentWord; // current word being read
 	inputFile.open(FILENAME); // open input file
+
+	int l = 0;
 	while (std::getline(inputFile, currentLine)){
+		std::transform(currentLine.begin(), currentLine.end(), currentLine.begin(), ::tolower);
 		std::stringstream sstream(currentLine);  // allows to parse string into array of words
 		int i = 0;
 		while (sstream.good() && i < 5){
 			sstream >> words[i];
+			i++;
 		}
 
-		currentWord = std::tolower(words[0]);
+		currentWord = words[0];
+		if (currentWord == "world"){
+			commandArray[l][0] = 'w';
+			commandArray[l][1] = words[1][0];
+			commandArray[l][2] = words[2][0];
+		}
+		else if (currentWord == "beepers"){
+			commandArray[l][0] = 'b';
+			commandArray[l][1] = words[1][0];
+			commandArray[l][2] = words[2][0];
+			commandArray[l][3] = words[3][0];
+		}
+		else if (currentWord == "wall"){
+			commandArray[l][0] = 'l';
+			commandArray[l][1] = words[1][0];
+			commandArray[l][2] = words[2][0];
+			commandArray[l][3] = words[3][0];
+		}
+		else if (currentWord == "robot"){
+			commandArray[l][0] = 'r';
+			commandArray[l][1] = words[1][0];
+			commandArray[l][2] = words[2][0];
+			commandArray[l][3] = words[3][0];
+			commandArray[l][4] = words[4][0];
+		}
+		else if (currentWord == "move"){
+			commandArray[l][0] = 'm';
+		}
+		else if (currentWord == "turnleft"){
+			commandArray[l][0] = 't';
+		}
+		else if (currentWord == "pickbeeper"){
+			commandArray[l][0] = 'k';
+		}
+		else if (currentWord == "putbeeper"){
+			commandArray[l][0] = 'p';
+		}
+		else if (currentWord == "turnoff"){
+			commandArray[l][0] = 'o';
+		}
+
+		l++;
 	}
-	
+
+	return commandArray;
 }
