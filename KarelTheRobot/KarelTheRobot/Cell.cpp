@@ -46,6 +46,10 @@ void Cell::DrawCell(Graphics^ g, Rectangle r){
 	DrawWalls(g, r);
 }
 
+void Cell::setBeeper(){
+	doesContainBeeper = true;
+}
+
 bool Cell::canMoveDown(){
 	return MoveDown;
 }
