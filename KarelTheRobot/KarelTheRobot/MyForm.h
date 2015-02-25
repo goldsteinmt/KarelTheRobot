@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Cell.h"
+#include "ReadFile.h"
+
 namespace Project1 {
 
 	using namespace System;
@@ -37,11 +40,14 @@ namespace Project1 {
 	private:
 		Graphics^g;
 		Pen^blackPen;
+		array<Cell^>^ world;
+		ReadFile *reader;
 
 	private: System::Windows::Forms::Panel^  panel1;
 
 			 Bitmap^ Karel = gcnew Bitmap("Karel.bmp");
 			 Bitmap^ beeper = gcnew Bitmap("beeper.bmp");
+
 	private: System::Windows::Forms::Label^  label_num;
 
 	protected:
@@ -96,11 +102,18 @@ namespace Project1 {
 		}
 #pragma endregion
 	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
+				 
 	}
+
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
 				 g = panel1->CreateGraphics();
-				 blackPen = gcnew System::Drawing::Pen(Color::Black);
+				 //blackPen = gcnew System::Drawing::Pen(Color::Black);
+
+				 
 
 	}
+
+	
+
 	};
 }
