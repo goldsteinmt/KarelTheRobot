@@ -82,9 +82,11 @@
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="ReadFile.cpp" />
+    <ClCompile Include="Karel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cell.h" />
+    <ClInclude Include="Karel.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>

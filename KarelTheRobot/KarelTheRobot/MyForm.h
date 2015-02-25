@@ -65,7 +65,7 @@ namespace Project1 {
 			// 
 			// panel1
 			// 
-			this->panel1->Location = System::Drawing::Point(29, 34);
+			this->panel1->Location = System::Drawing::Point(53, 40);
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(569, 436);
 			this->panel1->TabIndex = 0;
@@ -74,7 +74,7 @@ namespace Project1 {
 			// label_num
 			// 
 			this->label_num->AutoSize = true;
-			this->label_num->Location = System::Drawing::Point(642, 92);
+			this->label_num->Location = System::Drawing::Point(115, 510);
 			this->label_num->Name = L"label_num";
 			this->label_num->Size = System::Drawing::Size(249, 20);
 			this->label_num->TabIndex = 1;
@@ -84,11 +84,11 @@ namespace Project1 {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(974, 509);
+			this->ClientSize = System::Drawing::Size(770, 589);
 			this->Controls->Add(this->label_num);
 			this->Controls->Add(this->panel1);
 			this->Name = L"MyForm";
-			this->Text = L"MyForm";
+			this->Text = L"Karel The Robot";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
