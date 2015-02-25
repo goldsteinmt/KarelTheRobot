@@ -2,14 +2,15 @@
 
 ref class Karel{
 private:
-	int isFacing = 1, hasBeeper = 0;
-	// starts facing north with no beepers
+	int d, b;
 	
 	int x=0, y=0;
 
 public:
-	Karel(int,int);
+	Karel(int,int, int, int);
 
-	void turnLeft(int&);
-	void move(int, int, int)
+	void turnLeft();
+	void move();
+	void putbeeper();
+	void pickbeeper();
 };

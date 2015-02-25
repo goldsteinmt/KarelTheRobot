@@ -1,16 +1,16 @@
 #include "Karel.h"
 
-Karel::Karel(int d, int b){}
+Karel::Karel(int newx, int newy, int newd, int newb){
+	x = newx; y = newy; d = newd; b = newb;
+}
 
-
-
-void Karel::turnLeft(int& d){
+void Karel::turnLeft(){
 	if (d == 1)
 		d = 4;
 	else d--;
 }
 
-void Karel::move(int x, int y, int d){
+void Karel::move(){
 	switch (d){
 	case 1:
 		y++;
@@ -25,5 +25,13 @@ void Karel::move(int x, int y, int d){
 		x--;
 		break;
 	}
+}
+
+void Karel::pickbeeper(){
+	b++;
+}
+
+void Karel::putbeeper(){
+	b--;
 }
 
