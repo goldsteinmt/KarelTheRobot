@@ -2,9 +2,7 @@
 
 ref class Karel{
 private:
-	int d, b;
-	
-	int x=0, y=0;
+	int d, b, x, y;
 
 public:
 	Karel(int,int, int, int);
