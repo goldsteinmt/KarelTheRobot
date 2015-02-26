@@ -82,6 +82,6 @@ char** ReadFile::parseCommandFile(){
 
 		l++;
 	}
-
+	inputFile.close();
 	return commandArray;
 }
