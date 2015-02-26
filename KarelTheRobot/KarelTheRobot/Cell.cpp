@@ -1,27 +1,27 @@
 #include "Cell.h"
 #include <ctype.h>
 
-Cell::Cell(char w, bool b, bool k){
-	switch (tolower(w)){
-		case 'u':
-			MoveUp = false;
-			break;
-		case 'r':
-			MoveRight = false;
-			break;
-		case 'd':
-			MoveDown = false;
-			break;
-		case 'l':
-			MoveLeft = false;
-			break;
-	}
-
-	if (b){
+Cell::Cell(int n){
+	num_beepers = n;
+	if (n > 0){
 		doesContainBeeper = true;
 	}
-	if (k){
-		doesContainKarel = true;
+}
+
+void Cell::setWall(char w){
+	switch (tolower(w)){
+	case 'u':
+		MoveUp = false;
+		break;
+	case 'r':
+		MoveRight = false;
+		break;
+	case 'd':
+		MoveDown = false;
+		break;
+	case 'l':
+		MoveLeft = false;
+		break;
 	}
 }
 

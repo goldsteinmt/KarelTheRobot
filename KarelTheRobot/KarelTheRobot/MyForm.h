@@ -38,10 +38,13 @@ namespace Project1 {
 			}
 		}
 	private:
-		Graphics^g;
+
+		Graphics ^g, ^gBuff;
+		Bitmap ^buffImg;
 		Pen^blackPen;
 		array<Cell^>^ world;
 		ReadFile *reader;
+		char **commands;
 
 	private: System::Windows::Forms::Panel^  panel1;
 
@@ -101,18 +104,51 @@ namespace Project1 {
 
 		}
 #pragma endregion
-	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
-				 
-	}
 
+		int WORLD_WIDTH, WORLD_HEIGHT;
+	
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
-				 g = panel1->CreateGraphics();
-				 //blackPen = gcnew System::Drawing::Pen(Color::Black);
-
 				 
+				 initVariables();	 
+	}
+
+	private: System::Void initVariables(){
+				 commands = reader->parseCommandFile();
+
+				 g = panel1->CreateGraphics();
+				 blackPen = gcnew System::Drawing::Pen(Color::Black);
+
+				 int num_commands = sizeof(commands);
+				 int num_args = sizeof(commands[0]);
+				 int world_width, world_height;
+
+				 world = gcnew array<Cell^>(2);
+
+				 for (int loop = 0; loop < num_commands; loop++){
+					 if (tolower(commands[loop][0]) == 'w'){
+						 world_width = commands[loop][1];
+						 world_height = commands[loop][2];
+					 }
+				 }
+
+				 for (int c = 0; c < num_commands; c++){
+					 for (int a = 0; a < num_args; a++){
+						 
+					 }
+				 }
+
+
 
 	}
 
+	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
+
+
+	}
+
+	private: System::Void drawWorld(){
+
+	}
 	
 
 	};
