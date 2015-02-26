@@ -2,6 +2,8 @@
 #include <string>
 #include <fstream>
 
+// AUTHOR: MATTHEW GOLDSTEIN
+
 class ReadFile {
 private:
 	char **commandArray; // array holding commands

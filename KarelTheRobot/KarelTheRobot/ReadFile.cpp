@@ -2,6 +2,8 @@
 #include <sstream>
 #include <algorithm>
 
+// AUTHOR: MATTHEW GOLDSTEIN
+
 ReadFile::ReadFile(){
 	numCommands = getNumLines(); // get the number of lines from the file
 	commandArray = new char*[numCommands]; // initialize array of <numCommands> arrays
@@ -38,7 +40,7 @@ char** ReadFile::parseCommandFile(){
 			sstream >> words[i];
 			i++;
 		}
-
+		// different command options below
 		currentWord = words[0];
 		if (currentWord == "world"){
 			commandArray[l][0] = 'w';
