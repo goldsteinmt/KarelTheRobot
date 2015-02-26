@@ -80,7 +80,7 @@ namespace Project1 {
 			// label_num
 			// 
 			this->label_num->AutoSize = true;
-			this->label_num->Location = System::Drawing::Point(115, 510);
+			this->label_num->Location = System::Drawing::Point(127, 511);
 			this->label_num->Name = L"label_num";
 			this->label_num->Size = System::Drawing::Size(249, 20);
 			this->label_num->TabIndex = 1;
@@ -90,7 +90,7 @@ namespace Project1 {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(770, 589);
+			this->ClientSize = System::Drawing::Size(770, 564);
 			this->Controls->Add(this->label_num);
 			this->Controls->Add(this->panel1);
 			this->Name = L"MyForm";
