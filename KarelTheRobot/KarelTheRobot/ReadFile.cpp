@@ -1,7 +1,4 @@
 #include "ReadFile.h"
-#include <sstream>
-#include <string>
-#include <algorithm>
 
 // AUTHOR: MATTHEW GOLDSTEIN
 
