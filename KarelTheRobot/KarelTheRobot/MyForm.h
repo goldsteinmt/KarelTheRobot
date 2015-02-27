@@ -51,7 +51,7 @@ namespace Project1 {
 
 	private: System::Windows::Forms::Panel^  panel1;
 
-			 Bitmap^ Karel = gcnew Bitmap("Karel.bmp");
+			 Bitmap^ ka = gcnew Bitmap("Karel.bmp");
 			 Bitmap^ beeper = gcnew Bitmap("beeper.bmp");
 
 	private: System::Windows::Forms::Label^  label_num;
@@ -120,6 +120,7 @@ namespace Project1 {
 #pragma endregion
 
 		int WORLD_WIDTH, WORLD_HEIGHT, commandLine = 0, cellWidth, cellHeight;
+		//Karel ^k;
 	
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
 				 

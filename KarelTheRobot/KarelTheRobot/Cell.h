@@ -20,7 +20,6 @@ public:
 	bool canMoveDown();
 	bool canMoveLeft();
 	int getBeepers();
-	bool containsKarel();
 	int getX();
 	int getY();
 };
