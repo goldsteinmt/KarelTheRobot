@@ -53,6 +53,9 @@ namespace Project1 {
 
 			 Bitmap^ ka = gcnew Bitmap("Karel.bmp");
 			 Bitmap^ beeper = gcnew Bitmap("beeper.bmp");
+			 Bitmap^ beeper2 = gcnew Bitmap("beeper2.bmp");
+			 Bitmap^ beeper3 = gcnew Bitmap("beeper3.bmp");
+
 
 	private: System::Windows::Forms::Label^  label_num;
 	private: System::Windows::Forms::Timer^  timer1;
