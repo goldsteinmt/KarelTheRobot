@@ -1,52 +1,54 @@
 #include "Cell.h"
 #include <ctype.h>
 
-Cell::Cell(int n){
-	num_beepers = n;
-	if (n > 0){
-		doesContainBeeper = true;
-	}
+using namespace System::Drawing;
+
+Cell::Cell(int x, int y){
+	xLoc = x;
+	yLoc = y;
 }
 
-void Cell::setWall(char w){
-	switch (tolower(w)){
-	case 'u':
+void Cell::setWall(int w){
+	switch (w){
+	case 1:
 		MoveUp = false;
 		break;
-	case 'r':
+	case 2:
 		MoveRight = false;
 		break;
-	case 'd':
+	case 3:
 		MoveDown = false;
 		break;
-	case 'l':
+	case 4:
 		MoveLeft = false;
 		break;
 	}
 }
 
 //
-void Cell::DrawWalls(Graphics^ g, Rectangle r){
+void Cell::DrawWalls(Graphics^ g, Rectangle^ r){
 	if (!MoveDown){
-		g->DrawLine(wall, r.Bottom, r.Left, r.Bottom, r.Right);
+		g->DrawLine(wall, r->Bottom, r->Left, r->Bottom, r->Right);
 	}
 	if (!MoveLeft){
-		g->DrawLine(wall, r.Left, r.Top, r.Left, r.Bottom);
+		g->DrawLine(wall, r->Left, r->Top, r->Left, r->Bottom);
 	}
 	if (!MoveUp){
-		g->DrawLine(wall, r.Top, r.Left, r.Bottom, r.Top);
+		g->DrawLine(wall, r->Top, r->Left, r->Top, r->Right);
 	}
 	if (!MoveRight){
-		g->DrawLine(wall, r.Right, r.Top, r.Right, r.Bottom);
+		g->DrawLine(wall, r->Right, r->Top, r->Right, r->Bottom);
 	}
 }
 
-void Cell::DrawCell(Graphics^ g, Rectangle r){
-	g->FillRectangle(cellColor, r);
+void Cell::DrawCell(Graphics^ g, Rectangle^ r){
+	g->FillRectangle(cellColor, r->X, r->Y, r->Width, r->Height);
 	DrawWalls(g, r);
 }
 
-void Cell::setBeeper(){
+void Cell::setBeeper(int b){
+	num_beepers = b;
+	if (b > 0)
 	doesContainBeeper = true;
 }
 
@@ -66,10 +68,13 @@ bool Cell::canMoveRight(){
 	return MoveRight;
 }
 
-bool Cell::containsKarel(){
-	return doesContainKarel;
+int Cell::getBeepers(){
+	return num_beepers;
 }
 
-bool Cell::containsBeeper(){
-	return doesContainBeeper;
+int Cell::getX(){
+	return xLoc;
+}
+int Cell::getY(){
+	return yLoc;
 }

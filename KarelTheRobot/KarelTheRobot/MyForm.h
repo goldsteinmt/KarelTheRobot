@@ -1,7 +1,9 @@
 #pragma once
 
+#include "Karel.h"
 #include "Cell.h"
 #include "ReadFile.h"
+
 
 namespace Project1 {
 
@@ -42,7 +44,8 @@ namespace Project1 {
 		Graphics ^g, ^gBuff;
 		Bitmap ^buffImg;
 		Pen^blackPen;
-		array<Cell^>^ world;
+		Karel ^k;
+		array<Cell^, 2>^ world;
 		ReadFile *reader;
 		char **commands;
 
@@ -52,6 +55,8 @@ namespace Project1 {
 			 Bitmap^ beeper = gcnew Bitmap("beeper.bmp");
 
 	private: System::Windows::Forms::Label^  label_num;
+	private: System::Windows::Forms::Timer^  timer1;
+	private: System::ComponentModel::IContainer^  components;
 
 	protected:
 
@@ -59,7 +64,7 @@ namespace Project1 {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -68,34 +73,43 @@ namespace Project1 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->label_num = (gcnew System::Windows::Forms::Label());
+			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->SuspendLayout();
 			// 
 			// panel1
 			// 
-			this->panel1->Location = System::Drawing::Point(53, 40);
+			this->panel1->Location = System::Drawing::Point(35, 26);
+			this->panel1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(569, 436);
+			this->panel1->Size = System::Drawing::Size(379, 283);
 			this->panel1->TabIndex = 0;
 			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::panel1_Paint);
 			// 
 			// label_num
 			// 
 			this->label_num->AutoSize = true;
-			this->label_num->Location = System::Drawing::Point(127, 511);
+			this->label_num->Location = System::Drawing::Point(85, 332);
+			this->label_num->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label_num->Name = L"label_num";
-			this->label_num->Size = System::Drawing::Size(249, 20);
+			this->label_num->Size = System::Drawing::Size(167, 13);
 			this->label_num->TabIndex = 1;
 			this->label_num->Text = L"Number of Beepers in Karel\'s bag:";
 			// 
+			// timer1
+			// 
+			this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
+			// 
 			// MyForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(770, 564);
+			this->ClientSize = System::Drawing::Size(513, 367);
 			this->Controls->Add(this->label_num);
 			this->Controls->Add(this->panel1);
+			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->Name = L"MyForm";
 			this->Text = L"Karel The Robot";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
@@ -105,7 +119,7 @@ namespace Project1 {
 		}
 #pragma endregion
 
-		int WORLD_WIDTH, WORLD_HEIGHT;
+		int WORLD_WIDTH, WORLD_HEIGHT, commandLine = 0, cellWidth, cellHeight;
 	
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
 				 
@@ -122,8 +136,6 @@ namespace Project1 {
 				 int num_args = sizeof(commands[0]);
 				 int world_width, world_height;
 
-				 world = gcnew array<Cell^>(2);
-
 				 for (int loop = 0; loop < num_commands; loop++){
 					 if (tolower(commands[loop][0]) == 'w'){
 						 world_width = commands[loop][1];
@@ -131,8 +143,28 @@ namespace Project1 {
 					 }
 				 }
 
+				 world = gcnew array<Cell^, 2>(world_width, world_height);
+
+				 cellWidth = panel1->Width / world_width;
+				 cellHeight = panel1->Height / world_height;
+
+				 for (int x = 0; x < num_commands; x++){
+					 for (int y = 0; y < num_args; y++){
+						 world[x, y] = gcnew Cell(x,y);
+					 }
+				 }
+
 				 for (int c = 0; c < num_commands; c++){
 					 for (int a = 0; a < num_args; a++){
+						 if (commands[c][a] == 'l'){
+							 world[commands[c][a + 1] - '0', commands[c][a + 2] - '0']->setWall(commands[c][a + 3] - '0');
+						 }
+						 else if (commands[c][a] == 'b'){
+							 world[commands[c][a + 1] - '0', commands[c][a + 2] - '0']->setBeeper(commands[c][a + 3] - '0');
+						 }
+						 else if (commands[c][a] == 'r'){
+							 k = gcnew Karel(commands[c][a + 1] - '0', commands[c][a + 2] - '0', commands[c][a + 3] - '0', commands[c][a + 4] - '0');
+						 }
 						 
 					 }
 				 }
@@ -147,9 +179,40 @@ namespace Project1 {
 	}
 
 	private: System::Void drawWorld(){
-
+				 for (int x = 0; x < WORLD_WIDTH; x++){
+					 for (int y = 0; y < WORLD_HEIGHT; y++){
+						 Rectangle ^r = gcnew Rectangle();
+						 r->X = x * cellWidth;
+						 r->Y = y * cellHeight;
+						 r->Width = (x * cellWidth) + cellWidth;
+						 r->Height = (y * cellHeight) + cellHeight;
+						 world[x, y]->DrawCell(g, r);
+					 }
+				 }
 	}
 	
 
-	};
+	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
+				 commandLine++;
+				 if (commands[commandLine][0] == 'm'){
+					 k->move();
+				 }
+				 if (commands[commandLine][0] == 't'){
+					 k->turnLeft();
+				 }
+				 if (commands[commandLine][0] == 'k'){
+					 k->pickbeeper();
+					 world[commands[commandLine][1] - '0', commands[commandLine][2] - '0']->setBeeper(world[commands[commandLine][1] - '0', commands[commandLine][2] - '0']->getBeepers() - 1);
+				 }
+				 if (commands[commandLine][0] == 'p'){
+					 k->putbeeper();
+					 world[commands[commandLine][1] - '0', commands[commandLine][2] - '0']->setBeeper(1);
+				 }
+				 if (commands[commandLine][0] == '0'){
+					 
+				 }
+				 drawWorld();
+
+	}
+};
 }

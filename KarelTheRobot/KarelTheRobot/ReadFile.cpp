@@ -14,7 +14,7 @@ ReadFile::ReadFile(){
 
 int ReadFile::getNumLines(){
 	inputFile.open(FILENAME); // open file
-	int numLines; // holds number of lines
+	int numLines = 0; // holds number of lines
 	std::string tempHolder; // allows getline to be used
 	while (std::getline(inputFile, tempHolder)){ // while there are more lines
 		numLines++; // increment numlines
