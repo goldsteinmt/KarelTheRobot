@@ -23,6 +23,10 @@ int ReadFile::getNumLines(){
 	return numLines; 
 }
 
+int ReadFile::getNumCommands(){
+	return numCommands;
+}
+
 char** ReadFile::parseCommandFile(){
 	std::string currentLine; // buffer for reading lines and parsing
 	std::string words[5]; // array of words for current line to be parsed

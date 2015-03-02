@@ -16,4 +16,5 @@ public:
 	ReadFile(); // constructor
 	int getNumLines(); // inputs file and gets number of lines in the file
 	char** parseCommandFile(); // parses individual lines and adds commands to the array
+	int getNumCommands(); // returns numCommands
 };
