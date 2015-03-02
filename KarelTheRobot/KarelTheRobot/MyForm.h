@@ -3,6 +3,7 @@
 #include "Karel.h"
 #include "Cell.h"
 #include "ReadFile.h"
+#include <iostream>
 
 
 namespace Project1 {
@@ -41,8 +42,8 @@ namespace Project1 {
 		}
 	private:
 
-		Graphics ^g, ^gBuff;
-		Bitmap ^buffImg;
+		Graphics ^g;// , ^gBuff;
+		//Bitmap ^buffImg;
 		Pen^blackPen;
 		Karel ^k;
 		array<Cell^, 2>^ world;
@@ -85,7 +86,7 @@ namespace Project1 {
 			// panel1
 			// 
 			this->panel1->Location = System::Drawing::Point(35, 26);
-			this->panel1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->panel1->Margin = System::Windows::Forms::Padding(2);
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(379, 283);
 			this->panel1->TabIndex = 0;
@@ -103,6 +104,8 @@ namespace Project1 {
 			// 
 			// timer1
 			// 
+			this->timer1->Enabled = true;
+			this->timer1->Interval = 2000;
 			this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
 			// 
 			// MyForm
@@ -112,7 +115,7 @@ namespace Project1 {
 			this->ClientSize = System::Drawing::Size(513, 367);
 			this->Controls->Add(this->label_num);
 			this->Controls->Add(this->panel1);
-			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"MyForm";
 			this->Text = L"Karel The Robot";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
@@ -131,14 +134,18 @@ namespace Project1 {
 	}
 
 	private: System::Void initVariables(){
+				 reader = new ReadFile();
 				 commands = reader->parseCommandFile();
 
 				 g = panel1->CreateGraphics();
 				 blackPen = gcnew System::Drawing::Pen(Color::Black);
 
-				 int num_commands = sizeof(commands);
-				 int num_args = sizeof(commands[0]);
+				 //used for for loops
+				 int num_commands = reader->getNumLines();
+				 int num_args = 5;
 				 int world_width, world_height;
+
+				 
 
 				 for (int loop = 0; loop < num_commands; loop++){
 					 if (tolower(commands[loop][0]) == 'w'){
@@ -164,7 +171,7 @@ namespace Project1 {
 							 world[commands[c][a + 1] - '0', commands[c][a + 2] - '0']->setWall(commands[c][a + 3] - '0');
 						 }
 						 else if (commands[c][a] == 'b'){
-							 world[commands[c][a + 1] - '0', commands[c][a + 2] - '0']->setBeeper(commands[c][a + 3] - '0');
+							 world[commands[c][a + 1] - '0', commands[c][a + 2] - '0']->setBeeper((int)(commands[c][a + 3] - '0'));
 						 }
 						 else if (commands[c][a] == 'r'){
 							 k = gcnew Karel(commands[c][a + 1] - '0', commands[c][a + 2] - '0', commands[c][a + 3] - '0', commands[c][a + 4] - '0');
