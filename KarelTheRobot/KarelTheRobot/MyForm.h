@@ -3,8 +3,6 @@
 #include "Karel.h"
 #include "Cell.h"
 #include "ReadFile.h"
-#include <iostream>
-
 
 namespace Project1 {
 
@@ -141,16 +139,14 @@ namespace Project1 {
 				 blackPen = gcnew System::Drawing::Pen(Color::Black);
 
 				 //used for for loops
-				 int num_commands = reader->getNumLines();
+				 int num_commands = reader->getNumCommands();
 				 int num_args = 5;
 				 int world_width, world_height;
 
-				 
-
 				 for (int loop = 0; loop < num_commands; loop++){
 					 if (tolower(commands[loop][0]) == 'w'){
-						 world_width = commands[loop][1];
-						 world_height = commands[loop][2];
+						 world_width = commands[loop][1] - '0';
+						 world_height = commands[loop][2] - '0';
 					 }
 				 }
 
@@ -159,8 +155,8 @@ namespace Project1 {
 				 cellWidth = panel1->Width / world_width;
 				 cellHeight = panel1->Height / world_height;
 
-				 for (int x = 0; x < num_commands; x++){
-					 for (int y = 0; y < num_args; y++){
+				 for (int x = 0; x < world_width; x++){
+					 for (int y = 0; y < world_height; y++){
 						 world[x, y] = gcnew Cell(x,y);
 					 }
 				 }
@@ -179,9 +175,6 @@ namespace Project1 {
 						 
 					 }
 				 }
-
-
-
 	}
 
 	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {

@@ -1,5 +1,4 @@
 #include "Cell.h"
-#include <ctype.h>
 
 using namespace System::Drawing;
 
