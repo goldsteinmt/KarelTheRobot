@@ -186,7 +186,17 @@ namespace Project1 {
 						 r->Y = y * cellHeight;
 						 r->Width = (x * cellWidth) + cellWidth;
 						 r->Height = (y * cellHeight) + cellHeight;
-						 world[x, y]->DrawCell(gBuff, r);
+						 if (k->getX() == x && k->getY() == y)
+							world[x, y]->DrawCell(gBuff, r, ka);
+						 else if (world[x, y]->getBeepers == 1)
+							 world[x, y]->DrawCell(gBuff, r, beeper);
+						 else if (world[x, y]->getBeepers == 2)
+							 world[x, y]->DrawCell(gBuff, r, beeper2);
+						 else if (world[x, y]->getBeepers == 3)
+							 world[x, y]->DrawCell(gBuff, r, beeper3);
+						 else
+							 world[x, y]->DrawCell(gBuff, r);
+						 
 					 }
 				 }
 				 g->DrawImage(buffImg, 0, 0);

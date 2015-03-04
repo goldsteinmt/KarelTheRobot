@@ -45,6 +45,11 @@ void Cell::DrawCell(Graphics^ g, Rectangle^ r){
 	DrawWalls(g, r);
 }
 
+void Cell::DrawCell(Graphics^ g, Rectangle^ r, Bitmap^ b){
+	g->DrawImage(b, r->X, r->Y, r->Width, r->Height);
+	DrawWalls(g, r);
+}
+
 void Cell::setBeeper(int b){
 	num_beepers = b;
 	if (b > 0)

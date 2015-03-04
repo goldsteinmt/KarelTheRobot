@@ -13,6 +13,7 @@ public:
 	Cell(int, int);
 	void DrawWalls(Graphics^, Rectangle^);
 	void DrawCell(Graphics^, Rectangle^);
+	void DrawCell(Graphics^, Rectangle^, Bitmap^ b);
 	void setBeeper(int);
 	void setWall(int);
 	bool canMoveUp();
