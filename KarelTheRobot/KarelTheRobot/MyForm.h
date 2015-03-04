@@ -123,8 +123,7 @@ namespace Project1 {
 		}
 #pragma endregion
 
-		int WORLD_WIDTH, WORLD_HEIGHT, commandLine = 0, cellWidth, cellHeight;
-		//Karel ^k;
+		int WORLD_WIDTH, WORLD_HEIGHT, commandLine = 0, cellWidth, cellHeight, num_commands;
 	
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
 				 
@@ -139,7 +138,7 @@ namespace Project1 {
 				 blackPen = gcnew System::Drawing::Pen(Color::Black);
 
 				 //used for for loops
-				 int num_commands = reader->getNumCommands();
+				 num_commands = reader->getNumCommands();
 				 int num_args = 5;
 				 int world_width, world_height;
 
@@ -198,22 +197,24 @@ namespace Project1 {
 
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
 				 commandLine++;
-				 if (commands[commandLine][0] == 'm'){
-					 k->move();
-				 }
-				 if (commands[commandLine][0] == 't'){
-					 k->turnLeft();
-				 }
-				 if (commands[commandLine][0] == 'k'){
-					 k->pickbeeper();
-					 world[commands[commandLine][1] - '0', commands[commandLine][2] - '0']->setBeeper(world[commands[commandLine][1] - '0', commands[commandLine][2] - '0']->getBeepers() - 1);
-				 }
-				 if (commands[commandLine][0] == 'p'){
-					 k->putbeeper();
-					 world[commands[commandLine][1] - '0', commands[commandLine][2] - '0']->setBeeper(1);
-				 }
-				 if (commands[commandLine][0] == '0'){
-					 
+				 if (commandLine < num_commands){
+					 if (commands[commandLine][0] == 'm'){
+						 k->move();
+					 }
+					 if (commands[commandLine][0] == 't'){
+						 k->turnLeft();
+					 }
+					 if (commands[commandLine][0] == 'k'){
+						 k->pickbeeper();
+						 world[commands[commandLine][1] - '0', commands[commandLine][2] - '0']->setBeeper(world[commands[commandLine][1] - '0', commands[commandLine][2] - '0']->getBeepers() - 1);
+					 }
+					 if (commands[commandLine][0] == 'p'){
+						 k->putbeeper();
+						 world[commands[commandLine][1] - '0', commands[commandLine][2] - '0']->setBeeper(1);
+					 }
+					 if (commands[commandLine][0] == '0'){
+
+					 }
 				 }
 				 drawWorld();
 
