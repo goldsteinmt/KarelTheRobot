@@ -24,7 +24,7 @@ void Cell::setWall(int w){
 	}
 }
 
-//
+
 void Cell::DrawWalls(Graphics^ g, Rectangle^ r){
 	if (!MoveDown){
 		g->DrawLine(wall, r->Bottom, r->Left, r->Bottom, r->Right);

@@ -11,4 +11,7 @@ public:
 	void move();
 	void putbeeper();
 	void pickbeeper();
+	int get_x();
+	int get_y();
+
 };
