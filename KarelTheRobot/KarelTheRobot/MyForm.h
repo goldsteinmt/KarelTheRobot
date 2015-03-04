@@ -40,8 +40,8 @@ namespace Project1 {
 		}
 	private:
 
-		Graphics ^g;// , ^gBuff;
-		//Bitmap ^buffImg;
+		Graphics ^g , ^gBuff;
+		Bitmap ^buffImg;
 		Pen^blackPen;
 		Karel ^k;
 		array<Cell^, 2>^ world;
@@ -135,6 +135,7 @@ namespace Project1 {
 				 commands = reader->parseCommandFile();
 
 				 g = panel1->CreateGraphics();
+				 gBuff = Graphics::FromImage(buffImg);
 				 blackPen = gcnew System::Drawing::Pen(Color::Black);
 
 				 //used for for loops
@@ -177,11 +178,6 @@ namespace Project1 {
 	}
 
 	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
-
-
-	}
-
-	private: System::Void drawWorld(){
 				 for (int x = 0; x < WORLD_WIDTH; x++){
 					 for (int y = 0; y < WORLD_HEIGHT; y++){
 						 Rectangle ^r = gcnew Rectangle();
@@ -189,11 +185,11 @@ namespace Project1 {
 						 r->Y = y * cellHeight;
 						 r->Width = (x * cellWidth) + cellWidth;
 						 r->Height = (y * cellHeight) + cellHeight;
-						 world[x, y]->DrawCell(g, r);
+						 world[x, y]->DrawCell(gBuff, r);
 					 }
 				 }
+				 g->DrawImage(buffImg, 0, 0);
 	}
-	
 
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
 				 commandLine++;
@@ -216,8 +212,6 @@ namespace Project1 {
 
 					 }
 				 }
-				 drawWorld();
-
 	}
 };
 }
