@@ -135,6 +135,7 @@ namespace Project1 {
 				 commands = reader->parseCommandFile();
 
 				 g = panel1->CreateGraphics();
+				 buffImg = gcnew Bitmap(panel1->Width, panel1->Height, Imaging::PixelFormat::Format32bppArgb);
 				 gBuff = Graphics::FromImage(buffImg);
 				 blackPen = gcnew System::Drawing::Pen(Color::Black);
 
