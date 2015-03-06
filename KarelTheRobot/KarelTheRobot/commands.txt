@@ -3,3 +3,8 @@ beepers 3 3 2
 beepers 3 5 3
 wall 3 2 4
 robot 3 2 3 0
+move
+move
+move
+move
+move
