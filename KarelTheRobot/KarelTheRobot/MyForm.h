@@ -48,7 +48,7 @@ namespace Project1 {
 		ReadFile *reader;
 		char **commands;
 
-	private: System::Windows::Forms::Panel^  panel1;
+
 
 			 Bitmap^ ka = gcnew Bitmap("Karel.bmp");
 			 Bitmap^ beeper = gcnew Bitmap("beeper.bmp");
@@ -58,6 +58,7 @@ namespace Project1 {
 
 	private: System::Windows::Forms::Label^  label_num;
 	private: System::Windows::Forms::Timer^  timer1;
+	private: System::Windows::Forms::Panel^  panel1;
 
 	private: System::ComponentModel::IContainer^  components;
 
@@ -77,19 +78,10 @@ namespace Project1 {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
-			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->label_num = (gcnew System::Windows::Forms::Label());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->SuspendLayout();
-			// 
-			// panel1
-			// 
-			this->panel1->Location = System::Drawing::Point(35, 26);
-			this->panel1->Margin = System::Windows::Forms::Padding(2);
-			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(400, 400);
-			this->panel1->TabIndex = 0;
-			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::panel1_Paint);
 			// 
 			// label_num
 			// 
@@ -106,6 +98,15 @@ namespace Project1 {
 			this->timer1->Enabled = true;
 			this->timer1->Interval = 2000;
 			this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
+			// 
+			// panel1
+			// 
+			this->panel1->Location = System::Drawing::Point(35, 26);
+			this->panel1->Margin = System::Windows::Forms::Padding(2);
+			this->panel1->Name = L"panel1";
+			this->panel1->Size = System::Drawing::Size(400, 400);
+			this->panel1->TabIndex = 0;
+			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::panel1_Paint);
 			// 
 			// MyForm
 			// 
@@ -179,27 +180,7 @@ namespace Project1 {
 	}
 
 	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
-				 for (int x = 0; x < WORLD_HEIGHT; x++){
-					 for (int y = 0; y < WORLD_WIDTH; y++){
-						 Rectangle ^r = gcnew Rectangle();
-						 r->X = x * cellWidth;
-						 r->Y = y * cellHeight;
-						 r->Width = (x * cellWidth) + cellWidth;
-						 r->Height = (y * cellHeight) + cellHeight;
-						 if (k->get_x() == x && k->get_y() == y)
-							world[x, y]->DrawCell(gBuff, r, ka);
-						 else if (world[x, y]->getBeepers() == 1)
-							 world[x, y]->DrawCell(gBuff, r, beeper);
-						 else if (world[x, y]->getBeepers() == 2)
-							 world[x, y]->DrawCell(gBuff, r, beeper2);
-						 else if (world[x, y]->getBeepers() == 3)
-							 world[x, y]->DrawCell(gBuff, r, beeper3);
-						 else
-							 world[x, y]->DrawCell(gBuff, r);
-						 
-					 }
-				 }
-				 g->DrawImage(buffImg, 0, 0);
+				//Don't Use 
 	}
 
 			 private: System::Void drawWorld(){
@@ -211,7 +192,7 @@ namespace Project1 {
 								  r->Width = (x * cellWidth) + cellWidth;
 								  r->Height = (y * cellHeight) + cellHeight;
 								  if (k->get_x() == x && k->get_y() == y)
-									  world[x, y]->DrawCell(gBuff, r, ka);
+									  world[x, y]->DrawCell(gBuff, r, beeper);
 								  else if (world[x, y]->getBeepers() == 1)
 									  world[x, y]->DrawCell(gBuff, r, beeper);
 								  else if (world[x, y]->getBeepers() == 2)
@@ -224,8 +205,9 @@ namespace Project1 {
 							  }
 						  }
 						  panel1->Refresh();
-						  //clearBuffer();
 						  g->DrawImage(buffImg, Point(0, 0));
+						  clearBuffer();
+						  
 			 }
 
 	private: System::Void clearBuffer(){

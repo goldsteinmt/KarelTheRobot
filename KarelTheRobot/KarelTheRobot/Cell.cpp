@@ -46,6 +46,7 @@ void Cell::DrawCell(Graphics^ g, Rectangle^ r){
 }
 
 void Cell::DrawCell(Graphics^ g, Rectangle^ r, Bitmap^ b){
+	/*
 	float horizontalScalingFactor = (float)r->Width / (float)b->Width;
 	float verticalScalingFactor = (float)r->Height / (float)b->Height;
 
@@ -55,8 +56,8 @@ void Cell::DrawCell(Graphics^ g, Rectangle^ r, Bitmap^ b){
 
 	buffer->ScaleTransform(horizontalScalingFactor, verticalScalingFactor);
 	buffer->DrawImage(b, 0, 0);
-
-	g->DrawImage(img, r->X, r->Y, r->Width, r->Height);
+	*/
+	g->DrawImage(b, r->X, r->Y, r->Width, r->Height);
 
 	DrawWalls(g, r);
 }
