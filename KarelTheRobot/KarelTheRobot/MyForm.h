@@ -144,13 +144,14 @@ namespace Project1 {
 				 //used for for loops
 				 num_commands = reader->getNumCommands();
 				 int num_args = 5;
-				 bool firstCycle = true;
+				 //bool firstCycle = true;
 
 				 for (int loop = 0; loop < num_commands; loop++){
 					 if (tolower(commands[loop][0]) == 'w'){
 						 WORLD_WIDTH = commands[loop][1] - '0';
 						 WORLD_HEIGHT = commands[loop][2] - '0';
 					 }
+					 /*
 					 //Finds the first command for Karel to run and starts there
 					 if (firstCycle){
 						 if (tolower(commands[loop][0]) == 'm' ||
@@ -164,7 +165,7 @@ namespace Project1 {
 							 }
 							 firstCycle = false;
 						 }
-					 }
+					 }*/
 				 }
 
 				 world = gcnew array<Cell^, 2>(WORLD_WIDTH, WORLD_HEIGHT);
