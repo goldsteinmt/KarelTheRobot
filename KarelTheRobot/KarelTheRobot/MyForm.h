@@ -96,7 +96,7 @@ namespace Project1 {
 			// timer1
 			// 
 			this->timer1->Enabled = true;
-			this->timer1->Interval = 2000;
+			this->timer1->Interval = 1000;
 			this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
 			// 
 			// panel1
@@ -144,11 +144,26 @@ namespace Project1 {
 				 //used for for loops
 				 num_commands = reader->getNumCommands();
 				 int num_args = 5;
+				 bool firstCycle = true;
 
 				 for (int loop = 0; loop < num_commands; loop++){
 					 if (tolower(commands[loop][0]) == 'w'){
 						 WORLD_WIDTH = commands[loop][1] - '0';
 						 WORLD_HEIGHT = commands[loop][2] - '0';
+					 }
+					 //Finds the first command for Karel to run and starts there
+					 if (firstCycle){
+						 if (tolower(commands[loop][0]) == 'm' ||
+							 tolower(commands[loop][0]) == 't' ||
+							 tolower(commands[loop][0]) == 'k' ||
+							 tolower(commands[loop][0]) == 'p' ||
+							 tolower(commands[loop][0]) == 'o'){
+
+							 if (firstCycle){
+								 commandLine = loop;
+							 }
+							 firstCycle = false;
+						 }
 					 }
 				 }
 
@@ -271,7 +286,7 @@ namespace Project1 {
 						 }
 					 }
 					 if (commands[commandLine][0] == 'o'){
-						 //TODO end program
+						 timer1->Stop();
 					 }
 				 }
 				 label_num->Text = "Number of Beepers in Karel's Bag: " + k->getNumBeepers();
