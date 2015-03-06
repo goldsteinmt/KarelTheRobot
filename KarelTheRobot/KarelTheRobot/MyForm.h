@@ -58,6 +58,7 @@ namespace Project1 {
 
 	private: System::Windows::Forms::Label^  label_num;
 	private: System::Windows::Forms::Timer^  timer1;
+
 	private: System::ComponentModel::IContainer^  components;
 
 	protected:
@@ -86,14 +87,14 @@ namespace Project1 {
 			this->panel1->Location = System::Drawing::Point(35, 26);
 			this->panel1->Margin = System::Windows::Forms::Padding(2);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(379, 283);
+			this->panel1->Size = System::Drawing::Size(400, 400);
 			this->panel1->TabIndex = 0;
 			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::panel1_Paint);
 			// 
 			// label_num
 			// 
 			this->label_num->AutoSize = true;
-			this->label_num->Location = System::Drawing::Point(85, 332);
+			this->label_num->Location = System::Drawing::Point(61, 477);
 			this->label_num->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label_num->Name = L"label_num";
 			this->label_num->Size = System::Drawing::Size(167, 13);
@@ -110,7 +111,7 @@ namespace Project1 {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(513, 367);
+			this->ClientSize = System::Drawing::Size(559, 515);
 			this->Controls->Add(this->label_num);
 			this->Controls->Add(this->panel1);
 			this->Margin = System::Windows::Forms::Padding(2);
@@ -142,22 +143,21 @@ namespace Project1 {
 				 //used for for loops
 				 num_commands = reader->getNumCommands();
 				 int num_args = 5;
-				 int world_width, world_height;
 
 				 for (int loop = 0; loop < num_commands; loop++){
 					 if (tolower(commands[loop][0]) == 'w'){
-						 world_width = commands[loop][1] - '0';
-						 world_height = commands[loop][2] - '0';
+						 WORLD_WIDTH = commands[loop][1] - '0';
+						 WORLD_HEIGHT = commands[loop][2] - '0';
 					 }
 				 }
 
-				 world = gcnew array<Cell^, 2>(world_width, world_height);
+				 world = gcnew array<Cell^, 2>(WORLD_WIDTH, WORLD_HEIGHT);
 
-				 cellWidth = panel1->Width / world_width;
-				 cellHeight = panel1->Height / world_height;
+				 cellWidth = panel1->Width / WORLD_WIDTH;
+				 cellHeight = panel1->Height / WORLD_HEIGHT;
 
-				 for (int x = 0; x < world_width; x++){
-					 for (int y = 0; y < world_height; y++){
+				 for (int x = 0; x < WORLD_WIDTH; x++){
+					 for (int y = 0; y < WORLD_HEIGHT; y++){
 						 world[x, y] = gcnew Cell(x,y);
 					 }
 				 }
@@ -179,8 +179,8 @@ namespace Project1 {
 	}
 
 	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
-				 for (int x = 0; x < WORLD_WIDTH; x++){
-					 for (int y = 0; y < WORLD_HEIGHT; y++){
+				 for (int x = 0; x < WORLD_HEIGHT; x++){
+					 for (int y = 0; y < WORLD_WIDTH; y++){
 						 Rectangle ^r = gcnew Rectangle();
 						 r->X = x * cellWidth;
 						 r->Y = y * cellHeight;
@@ -188,11 +188,11 @@ namespace Project1 {
 						 r->Height = (y * cellHeight) + cellHeight;
 						 if (k->get_x() == x && k->get_y() == y)
 							world[x, y]->DrawCell(gBuff, r, ka);
-						 else if (world[x, y]->getBeepers == 1)
+						 else if (world[x, y]->getBeepers() == 1)
 							 world[x, y]->DrawCell(gBuff, r, beeper);
-						 else if (world[x, y]->getBeepers == 2)
+						 else if (world[x, y]->getBeepers() == 2)
 							 world[x, y]->DrawCell(gBuff, r, beeper2);
-						 else if (world[x, y]->getBeepers == 3)
+						 else if (world[x, y]->getBeepers() == 3)
 							 world[x, y]->DrawCell(gBuff, r, beeper3);
 						 else
 							 world[x, y]->DrawCell(gBuff, r);
@@ -200,6 +200,36 @@ namespace Project1 {
 					 }
 				 }
 				 g->DrawImage(buffImg, 0, 0);
+	}
+
+			 private: System::Void drawWorld(){
+						  for (int x = 0; x < WORLD_HEIGHT; x++){
+							  for (int y = 0; y < WORLD_WIDTH; y++){
+								  Rectangle ^r = gcnew Rectangle();
+								  r->X = x * cellWidth;
+								  r->Y = y * cellHeight;
+								  r->Width = (x * cellWidth) + cellWidth;
+								  r->Height = (y * cellHeight) + cellHeight;
+								  if (k->get_x() == x && k->get_y() == y)
+									  world[x, y]->DrawCell(gBuff, r, ka);
+								  else if (world[x, y]->getBeepers() == 1)
+									  world[x, y]->DrawCell(gBuff, r, beeper);
+								  else if (world[x, y]->getBeepers() == 2)
+									  world[x, y]->DrawCell(gBuff, r, beeper2);
+								  else if (world[x, y]->getBeepers() == 3)
+									  world[x, y]->DrawCell(gBuff, r, beeper3);
+								  else
+									  world[x, y]->DrawCell(gBuff, r);
+
+							  }
+						  }
+						  panel1->Refresh();
+						  //clearBuffer();
+						  g->DrawImage(buffImg, Point(0, 0));
+			 }
+
+	private: System::Void clearBuffer(){
+				 gBuff->FillRectangle(gcnew SolidBrush(Color::White),0,0,buffImg->Width, buffImg->Height);
 	}
 
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
@@ -223,6 +253,10 @@ namespace Project1 {
 
 					 }
 				 }
+				 label_num->Text = "Number of Beepers in Karel's Bag: " + k->getNumBeepers();
+				 drawWorld();
+
+
 	}
 };
 }

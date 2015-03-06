@@ -7,7 +7,7 @@ private:
 	int num_beepers, xLoc, yLoc;
 	bool MoveUp = true, MoveRight = true, MoveDown = true, MoveLeft = true, doesContainBeeper = false;
 	Pen ^wall = gcnew Pen(Color::Black);
-	SolidBrush ^cellColor = gcnew SolidBrush(Color::Bisque);
+	SolidBrush ^cellColor = gcnew SolidBrush(Color::White);
 	
 public:
 	Cell(int, int);

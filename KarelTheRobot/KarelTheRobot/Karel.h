@@ -13,5 +13,6 @@ public:
 	void pickbeeper();
 	int get_x();
 	int get_y();
+	int getNumBeepers();
 
 };

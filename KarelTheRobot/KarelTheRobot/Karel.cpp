@@ -20,6 +20,10 @@ void Karel::turnLeft(){
 	else d--;
 }
 
+int Karel::getNumBeepers(){
+		return b;
+}
+
 void Karel::move(){
 	switch (d){
 	case 1:
