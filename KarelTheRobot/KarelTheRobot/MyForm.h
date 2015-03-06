@@ -186,13 +186,15 @@ namespace Project1 {
 			 private: System::Void drawWorld(){
 						  for (int x = 0; x < WORLD_HEIGHT; x++){
 							  for (int y = 0; y < WORLD_WIDTH; y++){
+
 								  Rectangle ^r = gcnew Rectangle();
 								  r->X = x * cellWidth;
 								  r->Y = y * cellHeight;
-								  r->Width = (x * cellWidth) + cellWidth;
-								  r->Height = (y * cellHeight) + cellHeight;
+								  r->Width = cellWidth;
+								  r->Height = cellHeight;
+
 								  if (k->get_x() == x && k->get_y() == y)
-									  world[x, y]->DrawCell(gBuff, r, beeper);
+									  world[x, y]->DrawCell(gBuff, r, ka);
 								  else if (world[x, y]->getBeepers() == 1)
 									  world[x, y]->DrawCell(gBuff, r, beeper);
 								  else if (world[x, y]->getBeepers() == 2)
@@ -218,21 +220,58 @@ namespace Project1 {
 				 commandLine++;
 				 if (commandLine < num_commands){
 					 if (commands[commandLine][0] == 'm'){
-						 k->move();
+						 switch (k->getDirection()){
+						 case 1:
+							 //not at top and no wall on top of current block or bottom of next block
+							 if (k->get_y() != 0){
+								 if (world[k->get_x(), k->get_y()]->canMoveUp() && world[k->get_x(), k->get_y() - 1]->canMoveDown()){
+									 k->move();
+								 }
+							 }
+							 break;
+						 case 2:
+							 //not at Right side and no wall on right of current block or left of next block
+							 if (k->get_x() != WORLD_WIDTH){
+								 if (world[k->get_x(), k->get_y()]->canMoveRight() && world[k->get_x() + 1, k->get_y()]->canMoveLeft()){
+									 k->move();
+								 }
+							 }
+							 break;
+						 case 3:
+							 //not at bottom and no wall on bottom of current block or top of next block
+							 if (k->get_y() != WORLD_HEIGHT){
+								 if (world[k->get_x(), k->get_y()]->canMoveDown() && world[k->get_x(), k->get_y() + 1]->canMoveUp()){
+									 k->move();
+								 }
+							 }
+							 break;
+						 case 4:
+							 //not at left side and no wall on left of current block or right of next block
+							 if (k->get_x() != 0){
+								 if (world[k->get_x(), k->get_y()]->canMoveLeft() && world[k->get_x() - 1, k->get_y()]->canMoveRight()){
+									 k->move();
+								 }
+							 }
+							 break;
+						 }
 					 }
 					 if (commands[commandLine][0] == 't'){
 						 k->turnLeft();
 					 }
 					 if (commands[commandLine][0] == 'k'){
-						 k->pickbeeper();
-						 world[commands[commandLine][1] - '0', commands[commandLine][2] - '0']->setBeeper(world[commands[commandLine][1] - '0', commands[commandLine][2] - '0']->getBeepers() - 1);
+						 if (world[k->get_x(), k->get_y()]->getBeepers() > 0){
+							 k->pickbeeper();
+							 world[k->get_x(), k->get_y()]->setBeeper(world[k->get_x(), k->get_y()]->getBeepers() - 1);
+						 }
 					 }
 					 if (commands[commandLine][0] == 'p'){
-						 k->putbeeper();
-						 world[commands[commandLine][1] - '0', commands[commandLine][2] - '0']->setBeeper(1);
+						 if (k->getNumBeepers() > 0){
+							 k->putbeeper();
+							 world[k->get_x(), k->get_y()]->setBeeper(world[k->get_x(), k->get_y()]->getBeepers() + 1);
+						 }
 					 }
-					 if (commands[commandLine][0] == '0'){
-
+					 if (commands[commandLine][0] == 'o'){
+						 //TODO end program
 					 }
 				 }
 				 label_num->Text = "Number of Beepers in Karel's Bag: " + k->getNumBeepers();

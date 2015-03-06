@@ -24,16 +24,20 @@ int Karel::getNumBeepers(){
 		return b;
 }
 
+int Karel::getDirection(){
+	return d;
+}
+
 void Karel::move(){
 	switch (d){
 	case 1:
-		y++;
+		y--;
 		break;
 	case 2:
 		x++;
 		break;
 	case 3:
-		y--;
+		y++;
 		break;
 	case 4:
 		x--;

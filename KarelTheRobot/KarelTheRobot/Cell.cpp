@@ -27,16 +27,16 @@ void Cell::setWall(int w){
 
 void Cell::DrawWalls(Graphics^ g, Rectangle^ r){
 	if (!MoveDown){
-		g->DrawLine(wall, r->Bottom, r->Left, r->Bottom, r->Right);
+		g->DrawLine(wall, r->Left, r->Bottom - 1, r->Right, r->Bottom - 1);
 	}
 	if (!MoveLeft){
 		g->DrawLine(wall, r->Left, r->Top, r->Left, r->Bottom);
 	}
 	if (!MoveUp){
-		g->DrawLine(wall, r->Top, r->Left, r->Top, r->Right);
+		g->DrawLine(wall, r->Left, r->Top, r->Right, r->Top);
 	}
 	if (!MoveRight){
-		g->DrawLine(wall, r->Right, r->Top, r->Right, r->Bottom);
+		g->DrawLine(wall, r->Right - 1, r->Top, r->Right - 1, r->Bottom);
 	}
 }
 
@@ -46,18 +46,8 @@ void Cell::DrawCell(Graphics^ g, Rectangle^ r){
 }
 
 void Cell::DrawCell(Graphics^ g, Rectangle^ r, Bitmap^ b){
-	/*
-	float horizontalScalingFactor = (float)r->Width / (float)b->Width;
-	float verticalScalingFactor = (float)r->Height / (float)b->Height;
-
-	Bitmap^ img = gcnew Bitmap(r->Width, r->Height);
-
-	Graphics^ buffer = Graphics::FromImage(img);
-
-	buffer->ScaleTransform(horizontalScalingFactor, verticalScalingFactor);
-	buffer->DrawImage(b, 0, 0);
-	*/
-	g->DrawImage(b, r->X, r->Y, r->Width, r->Height);
+	
+	g->DrawImage(b, r->X, r->Y);
 
 	DrawWalls(g, r);
 }

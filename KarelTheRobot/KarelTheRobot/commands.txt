@@ -1,8 +1,13 @@
 WORLD 8 8
-wall 2 6 4
-wall 5 1 1
-wall 7 3 2
 beepers 0 1 1
 beepers 6 4 2
 beepers 4 7 3
-robot 0 0 3 2
+robot 5 5 1 2
+move 
+turnleft
+move
+turnleft
+move
+turnleft
+move
+putbeeper
